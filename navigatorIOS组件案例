@@ -1,0 +1,94 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+import React, { Component } from 'react';
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  PixelRatio,
+  NavigatorIOS,
+  ScrollView
+} from 'react-native';
+class List extends Component{
+  constructor(props){
+    super(props);
+    this.goTo = this.goTo.bind(this);
+  }
+  goTo(){
+    this.props.navigator.push({
+      component:Detail,
+      title:'邮轮详情',
+      rightButtonTitle:'购物车',
+      onRightButtonPress:function(){
+        alert('进入购物车');
+      }
+    });
+  }
+  render(){
+    return(
+      <ScrollView style={styles.flex}>
+        <Text style={styles.list_item} onPress={this.goTo}>⭐️豪华游轮三日游</Text>
+        <Text style={styles.list_item} onPress={this.goTo}>⭐️豪华游轮三日游</Text>
+        <Text style={styles.list_item} onPress={this.goTo}>⭐️豪华游轮三日游</Text>
+      </ScrollView>
+    );
+  }
+}
+class Detail extends Component{
+  render(){
+    return(
+      <ScrollView>
+        <Text>详情页</Text>
+        <Text>信息虽然少，但这就是详情页。</Text>
+      </ScrollView>
+    );
+  }
+}
+export default class hello extends Component{
+  render(){
+    return (
+      <View style={styles.container}>
+        <NavigatorIOS
+          style= {{flex:1}}
+          initialRoute={{
+            component: List,
+            title: '邮轮',
+            passProps:{}
+          }}
+        ></NavigatorIOS>
+      </View>
+    );
+  }
+}
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 25,
+    marginBottom: 35,
+    marginLeft: 5,
+    marginRight: 5,
+    display:'flex',
+    flex:1,
+    borderWidth: 1,
+    borderColor: 'red'
+
+  },
+  flex: {
+    flex:1
+  },
+  list_item: {
+    height:40,
+    marginLeft:10,
+    marginRight:10,
+    borderBottomWidth:1,
+    borderBottomColor:'#aaa',
+    justifyContent:'center'
+  },
+  list_item_font: {
+    fontSize: 16
+  }
+});
+AppRegistry.registerComponent('hello', () => hello);
