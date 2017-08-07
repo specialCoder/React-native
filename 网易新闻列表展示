@@ -88,7 +88,59 @@ const styles = StyleSheet.create({
 
 
 3.ImportantNews.js
-
+import React, {Component} from 'react';
+import {
+    StyleSheet,
+    View,
+    Text,
+} from 'react-native';
+export default class ImportantNews extends Component{
+    constructor(props){
+        super(props);
+        this.show.bind(this);
+    }
+    show(title){
+        alert(title);
+    }
+    render(){
+        var news = [];
+        for(var i in this.props.news){
+            var text = (
+                <Text
+                    onPress = {this.show(this.props.news[i])}
+                    numberOfLines={2}
+                    style = {styles.new_item}
+                >{this.props.news[i]}</Text>
+            );
+            news.push(text);
+        }
+        return(
+            <View style={styles.flex}>
+                <Text style={styles.new_title}>今日要闻</Text>
+                {news}
+            </View>
+        );
+    }
+}
+const styles = StyleSheet.create({
+    flex: {
+        flex:1
+    },
+    new_item: {
+        marginTop:10,
+        marginLeft:10,
+        marginRight:10,
+        fontSize:20,
+        lineHeight:20
+    },
+    new_title: {
+        fontSize:20,
+        fontWeight:'bold',
+        marginLeft:15,
+        marginTop:15,
+        color:'#CD1D1C'
+    }
+});
 
 4.index.ios.js
 /**
@@ -106,6 +158,7 @@ import {
 } from 'react-native';
 import Header from './ios/Header';
 import List from './ios/List';
+import ImportantNews from './ios/importantNews';
 export default class hello extends Component{
   render(){
     return (
@@ -115,6 +168,11 @@ export default class hello extends Component{
         <List title="宇航员在空中宣布‘三体’获奖"></List>
         <List title="宇航员在空中宣布‘三体’获奖"></List>
         <List title="宇航员在空中宣布‘三体’获奖"></List>
+        <ImportantNews news={[
+          '1.京津冀协同发展',
+          '2.人民邮电出版社即将出版新书',
+          '3.三体获得大奖'
+        ]}></ImportantNews>
       </View>
     );
   }
@@ -133,3 +191,4 @@ const styles = StyleSheet.create({
   }
 });
 AppRegistry.registerComponent('hello', () => hello);
+
