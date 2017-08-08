@@ -1,0 +1,119 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+import React, { Component } from 'react';
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  PixelRatio,
+  Image,
+  TouchableOpacity
+} from 'react-native';
+class MyImage extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      imgs: this.props.imgs,
+      count:0
+    };
+  }
+  goNext(){
+    console.log('this.state~~',this.state);
+    var count = this.state.count;
+        count ++;
+    if(count < this.props.imgs.length){
+      this.setState({
+        count: count
+      });
+    }
+  }
+  goPreview(){
+    var count = this.state.count;
+    count --;
+    if(count >= 0){
+      this.setState({
+        count: count
+      });
+    }
+  }
+   render(){
+    return(
+      <View style={[styles.flex]}>
+        <View style={styles.image}>
+          <Image style={styles.img} 
+            source={{uri: this.state.imgs[this.state.count]}}
+            resizeMode="contain"
+          />
+        </View>
+        <View style={styles.btns}>
+          <TouchableOpacity onPress={this.goPreview.bind(this)}>
+            <View style={styles.btn}>
+               <Text>上一张</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.goNext.bind(this)}>
+            <View style={styles.btn}>
+               <Text>下一张</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
+export default class hello extends Component{
+  render(){
+    var imgs = [
+              'https://facebook.github.io/react/img/logo_og.png',
+               'https://www.baidu.com/img/bd_logo1.png',
+              'http://vczero.github.io/me/img/xiaoxue.png'
+
+              ];
+    return(
+      <View style={[styles.flex, {marginTop:40}]}>
+        <MyImage imgs={imgs}></MyImage>
+      </View>
+    );
+  }
+}
+var styles = StyleSheet.create({
+  flex:{
+    flex: 1,
+    alignItems:'center'
+  },
+  image:{
+    flexDirection:'row',
+    borderWidth:1,
+    width:300,
+    height:200,
+    borderRadius:5,
+    borderColor:'#ccc',
+    justifyContent:'center'
+  },
+  img:{
+    height:200,
+    width:290,
+    justifyContent:'center',
+  },
+  btns:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop:20
+  },
+  btn:{
+    width:60,
+    height:30,
+    borderColor: '#0089FF',
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems:'center',
+    borderRadius:3,
+    marginRight:20,
+  },
+});
+AppRegistry.registerComponent('hello', () => hello);
