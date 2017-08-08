@@ -1,0 +1,71 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+import React, { Component } from 'react';
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  PixelRatio,
+  TouchableHighlight,
+  TouchableOpacity
+} from 'react-native';
+var onePT = 1 / PixelRatio.get();
+export default class hello extends Component{
+  constructor(props){
+    super(props);
+  }
+  show(title){
+    alert(title);
+  }
+  underShow(){
+    alert('undershow');
+  }
+  render(){
+    return (
+      <View style={styles.contain}> 
+        <View style={styles.flex}>
+          <TouchableHighlight 
+            onPress={this.show.bind(this,'触摸高亮')}
+            underlayColor="#efe"
+          >
+            <Text style={styles.item}>触摸高亮效果</Text>
+          </TouchableHighlight>
+          <TouchableOpacity
+            onPress={this.show.bind(this,'ReactNative入门与实践')}
+          >
+            <Text style={styles.item}>ReactNative入门与实践</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.show.bind(this,'图灵社区')}
+          >
+            <Text style={styles.item}>图灵社区</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
+const styles = StyleSheet.create({
+  contain: {
+    flex:1,
+    marginTop:25,
+  },
+   flex:{
+    flex: 1,
+  },
+  item:{
+    fontSize:16,
+    padding:5,
+    paddingTop:10,
+    paddingBottom:10,
+    borderWidth:onePT,
+    borderColor:'#ddd',
+    borderTopWidth:0
+  }
+});
+AppRegistry.registerComponent('hello', () => hello);
